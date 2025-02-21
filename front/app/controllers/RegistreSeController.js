@@ -10,7 +10,7 @@ angular.module('meuApp')
         
         $scope.criarCadastro = function () {
 
-            $url = 'http://localhost:8000/api/usuarios/criar';
+            $url = 'http://localhost:8000/api/usuarios/cadastrar';
 
             if($scope.info.password != $scope.info.senhaConfirmar) {
                 Swal.fire({

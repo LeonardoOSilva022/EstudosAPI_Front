@@ -4,7 +4,7 @@ angular.module('meuApp')
         $token = localStorage.getItem('token');
 
         $scope.deslogar = function () {
-            $url = 'http://localhost:8000/api/usuarios/logout';
+            $url = 'http://localhost:8000/api/logout';
 
             $config = {
                 headers: {

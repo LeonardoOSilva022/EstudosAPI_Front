@@ -1,5 +1,5 @@
 angular.module('meuApp')
-.controller('testeController', function($scope, $state) {
+.controller('controller', function($scope, $state) {
     // Lógica do controlador
 
 $token = localStorage.getItem('token');

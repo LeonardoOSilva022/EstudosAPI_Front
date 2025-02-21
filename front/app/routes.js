@@ -5,12 +5,12 @@ angular.module('meuApp', ['ui.router'])
     .state('main', {
         abstract: true,
         templateUrl: 'index.html',
-        controller: 'testeController'
+        controller: 'controller'
     })
     .state('main.home', {
         url: '/',
         templateUrl: 'app/views/home.html',
-        controller: 'testeController'
+        controller: 'controller'
     })
     .state('login', {
         url: '/login',
