@@ -3,18 +3,23 @@ angular.module('meuApp')
 
     $scope.contatos = [];
 
-    console.log($scope.contatos);
+    // Função para obter o token do localStorage
+    function getToken() {
+      return localStorage.getItem('token'); // ou sessionStorage.getItem('token')
+    }
 
     listar = function () {
+      token = getToken();
       $url = 'http://localhost:8000/api/Gerenciar/listar';
-      $http.get($url).then(function (response) {
+      $http.get($url, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      }).then(function (response) {
         console.log(response);
         $scope.contatos = response.data;
 
       }, function (error) {
         console.log(error);
       });
-
     }
 
     listar();
@@ -40,8 +45,11 @@ angular.module('meuApp')
     }
 
     $scope.salvarInfo = function () {
+      token = getToken();
       $url = 'http://localhost:8000/api/Gerenciar/salvar';
-      $http.post($url, $scope.dados).then(function (response) {
+      $http.post($url, $scope.dados, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      }).then(function (response) {
         console.log(response);
         if (response.status == 201) {
           Swal.fire({
@@ -59,8 +67,11 @@ angular.module('meuApp')
     };
 
     $scope.editarSalvar = function () {
+      token = getToken();
       $url = 'http://localhost:8000/api/Gerenciar/atualizarparcial/' + $scope.dados.id;
-      $http.patch($url, $scope.dados).then(function (response) {
+      $http.patch($url, $scope.dados, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      }).then(function (response) {
         console.log(response);
         if (response.status == 200) {
           Swal.fire({
@@ -78,7 +89,7 @@ angular.module('meuApp')
     };
 
     $scope.delete = function (id) {
-
+      token = getToken();
 
       Swal.fire({
         title: "Você tem certeza?",
@@ -91,9 +102,10 @@ angular.module('meuApp')
         cancelButtonText: "Cancelar"
       }).then((result) => {
         if (result.isConfirmed) {
-
           $url = 'http://localhost:8000/api/Gerenciar/deletar/' + id;
-          $http.delete($url).then(function (response) {
+          $http.delete($url, {
+            headers: { 'Authorization': `Bearer ${token}` }
+          }).then(function (response) {
             if (response.status == 200) {
               Swal.fire({
                 title: "Deletado!",
@@ -104,7 +116,6 @@ angular.module('meuApp')
               });
               listar();
             }
-
           }, function (error) {
             console.log(error);
           });
@@ -113,8 +124,11 @@ angular.module('meuApp')
     };
 
     $scope.editar = function (id) {
+      token = getToken();
       $url = 'http://localhost:8000/api/Gerenciar/lerUm/' + id;
-      $http.get($url).then(function (response) {
+      $http.get($url, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      }).then(function (response) {
         $scope.status = 'editando';
         console.log(response);
         $scope.dados = response.data;
