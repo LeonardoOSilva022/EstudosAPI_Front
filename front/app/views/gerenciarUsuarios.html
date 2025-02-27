@@ -19,7 +19,7 @@
     <div class="content">
         <h1>Gerenciamento de Usuários</h1>
         <div class="user-actions">
-            <button class="add-user-btn" ng-click="salvarInfo()">
+            <button class="add-user-btn" ng-click="cadastrando()">
                 <i class="fas fa-user-plus"></i> Adicionar Usuário
             </button>
         </div>
@@ -38,7 +38,7 @@
                     <td>{{item.name}}</td>
                     <td>{{item.email}}</td>
                     <td>
-                        <button class="edit-btn" ng-click="$parent.editar(item.id)">
+                        <button class="edit-btn" ng-click="mostraredicao(item.id)">
                             <i class="fas fa-edit"></i> Editar
                         </button>
 
@@ -54,9 +54,27 @@
                     </td>
             </tbody>
         </table>
+        <div class="user-form" ng-show="status === 'editando'">
+            <h2>Editar Usuário</h2>
+            <form ng-submit="salvar()">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" ng-model="editarDados.name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" ng-model="editarDados.email" required>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" ng-model="editarDados.password" required>
+                <button type="button" class="save-btn" ng-click="editar()">
+                    <i class="fas fa-save"></i> Salvar 
+                </button>
+                <button type="button" class="cancel-btn" ng-click="cancelar()">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </form>
+        </div>
     </div>
     <footer>
         <p>© 2024 Majestic Store. Todos os direitos reservados.</p>
       </footer>
 </body>
 </html>
+

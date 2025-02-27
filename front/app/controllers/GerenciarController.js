@@ -1,19 +1,35 @@
 angular.module('meuApp')
   .controller('GerenciarController', function ($scope, $http) {
 
-    $scope.contatos = [];
+    $token = localStorage.getItem('token');
+    $scope.usuario = JSON.parse(localStorage.getItem('usuario'));
 
-    // Função para obter o token do localStorage
-    function getToken() {
-      return localStorage.getItem('token'); // ou sessionStorage.getItem('token')
+    $config = {
+      headers: {
+          'Authorization': 'Bearer ' + $token
+      }
+  }
+
+  $scope.editarDados = {
+        id: '',
+        nome: '',
+        email: '',
+        password: ''
+  }
+
+    lerUm = function(id){
+      $url = 'http://localhost:8000/api/Gerenciar/lerUm/' + id;
+      $http.get($url,$config).then(function(response){
+        console.log(response);
+        $scope.editarDados = response.data;
+      },function(error){
+        console.log(error);
+      });
     }
 
     listar = function () {
-      token = getToken();
       $url = 'http://localhost:8000/api/Gerenciar/listar';
-      $http.get($url, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      }).then(function (response) {
+      $http.get($url,$config).then(function (response) {
         console.log(response);
         $scope.contatos = response.data;
 
@@ -25,7 +41,7 @@ angular.module('meuApp')
     listar();
 
     $scope.status = 'criando';
-
+    
     $scope.dados = {
       id: '',
       nome: '',
@@ -44,12 +60,10 @@ angular.module('meuApp')
       listar();
     }
 
+
     $scope.salvarInfo = function () {
-      token = getToken();
       $url = 'http://localhost:8000/api/Gerenciar/salvar';
-      $http.post($url, $scope.dados, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      }).then(function (response) {
+      $http.post($url, $scope.dados,$config).then(function (response) {
         console.log(response);
         if (response.status == 201) {
           Swal.fire({
@@ -67,11 +81,8 @@ angular.module('meuApp')
     };
 
     $scope.editarSalvar = function () {
-      token = getToken();
-      $url = 'http://localhost:8000/api/Gerenciar/atualizarparcial/' + $scope.dados.id;
-      $http.patch($url, $scope.dados, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      }).then(function (response) {
+      $url = 'http://localhost:8000/api/Gerenciar/editarParcial/' + $scope.dados.id;
+      $http.patch($url, $scope.editarDados,$config).then(function (response) {
         console.log(response);
         if (response.status == 200) {
           Swal.fire({
@@ -89,8 +100,6 @@ angular.module('meuApp')
     };
 
     $scope.delete = function (id) {
-      token = getToken();
-
       Swal.fire({
         title: "Você tem certeza?",
         text: "Excluir este dado não é irreversível!",
@@ -103,9 +112,7 @@ angular.module('meuApp')
       }).then((result) => {
         if (result.isConfirmed) {
           $url = 'http://localhost:8000/api/Gerenciar/deletar/' + id;
-          $http.delete($url, {
-            headers: { 'Authorization': `Bearer ${token}` }
-          }).then(function (response) {
+          $http.delete($url,$config).then(function (response) {
             if (response.status == 200) {
               Swal.fire({
                 title: "Deletado!",
@@ -123,19 +130,25 @@ angular.module('meuApp')
       });
     };
 
-    $scope.editar = function (id) {
-      token = getToken();
-      $url = 'http://localhost:8000/api/Gerenciar/lerUm/' + id;
-      $http.get($url, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      }).then(function (response) {
-        $scope.status = 'editando';
+    $scope.mostraredicao = function(id){
+      $scope.status = 'editando';
+      lerUm(id);
+    }
+
+    $scope.editar = function () {
+      $url = 'http://localhost:8000/api/Gerenciar/editar/' + $scope.editarDados.id;
+      $http.put($url,$scope.editarDados,$config).then(function (response) {
         console.log(response);
         $scope.dados = response.data;
 
       }, function (error) {
         console.log(error);
       });
-    };
+    }; 
+
+    $scope.cancelar = function () {
+      $scope.status = ''; // Oculta o formulário
+  };
+
 
 });

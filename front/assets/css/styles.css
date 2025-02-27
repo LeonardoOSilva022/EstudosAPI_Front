@@ -28,9 +28,8 @@ body {
 }
 
 .container {
-  display: flex;
-  height: 100%;
-  /* Garante que o container ocupa toda a altura da tela */
+  flex: 1; /* Faz com que a container ocupe o espaço restante */
+  overflow: auto; /* Evita que o conteúdo fique escondido se passar do tamanho */
 }
 
 /* Header */
