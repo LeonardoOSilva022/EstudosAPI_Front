@@ -1,0 +1,57 @@
+<div class="content">
+    <!-- O botão foi adicionado aqui, ao lado do título -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <div>
+            <h1>Bem-vindo à Majestic Store, {{usuario.name}}!</h1>
+            <p>Confira os produtos em destaque ou gere uma nova ideia com nossa IA.</p>
+        </div>
+        <!-- Este é o novo botão -->
+        <button class="btn btn-primary" ng-click="gerarIdeiaProduto()">
+            <i class="fas fa-lightbulb"></i> Gerar Ideia de Produto com IA
+        </button>
+    </div>
+
+    <!-- O resto da sua página continua igual -->
+    <div class="product-gallery">
+        <div class="product-card">
+            <img src="https://placehold.co/600x400/1f2937/38bdf8?text=Produto+1" alt="Produto 1">
+            <div class="product-card-content">
+                <h2>Placa de Vídeo RTX 9090</h2>
+                <p>R$ 9.999,90</p>
+                <button class="btn btn-primary">
+                    <i class="fas fa-shopping-cart"></i> Comprar
+                </button>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://placehold.co/600x400/1f2937/6366f1?text=Produto+2" alt="Produto 2">
+            <div class="product-card-content">
+                <h2>Monitor Gamer UltraWide</h2>
+                <p>R$ 4.149,90</p>
+                <button class="btn btn-primary">
+                    <i class="fas fa-shopping-cart"></i> Comprar
+                </button>
+            </div>
+        </div>
+        <div class="product-card">
+            <img src="https://placehold.co/600x400/1f2937/e5e7eb?text=Produto+3" alt="Produto 3">
+            <div class="product-card-content">
+                <h2>Teclado Mecânico RGB</h2>
+                <p>R$ 899,90</p>
+                <button class="btn btn-primary">
+                    <i class="fas fa-shopping-cart"></i> Comprar
+                </button>
+            </div>
+        </div>
+         <div class="product-card">
+            <img src="https://placehold.co/600x400/1f2937/ef4444?text=Produto+4" alt="Produto 4">
+            <div class="product-card-content">
+                <h2>Cadeira Gamer Confort</h2>
+                <p>R$ 2.399,90</p>
+                <button class="btn btn-primary">
+                    <i class="fas fa-shopping-cart"></i> Comprar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

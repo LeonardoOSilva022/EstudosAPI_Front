@@ -1,0 +1,20 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <h1>Bem-vindo de volta!</h1>
+    <p>Faça login para acessar sua conta.</p>
+    <form name="loginForm" ng-submit="logar()" novalidate>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="seu.email@exemplo.com" required ng-model="usuario.email">
+      </div>
+      <div class="input-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="••••••••" required ng-model="usuario.password">
+      </div>
+      <button type="submit" class="btn-auth">Entrar</button>
+    </form>
+    <div class="auth-footer">
+      <p>Não tem uma conta? <a ui-sref="register">Registre-se agora</a></p>
+    </div>
+  </div>
+</div>

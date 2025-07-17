@@ -1,0 +1,70 @@
+<div class="content">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>Gerenciamento de Usuários</h1>
+        <button class="btn btn-success" ng-click="abrirModal()">
+            <i class="fas fa-user-plus"></i> Adicionar Usuário
+        </button>
+    </div>
+
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in contatos">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.email}}</td>
+                <td class="actions-cell">
+                    <button class="btn btn-warning" ng-click="abrirModal(item)">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    </td>
+            </tr>
+        </tbody>
+        <tbody ng-show="contatos.length == 0">
+            <tr>
+                <td colspan="4" style="text-align: center; padding: 2rem;">Nenhum usuário cadastrado.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div ng-if="modal.visivel">
+        <div class="modal-backdrop-custom" ng-click="fecharModal()"></div>
+
+        <div class="modal-custom">
+            <div class="modal-header-custom">
+                <h3>{{ modal.data.id ? 'Editar Usuário' : 'Adicionar Usuário' }}</h3>
+                <button class="btn-close-custom" ng-click="fecharModal()">&times;</button>
+            </div>
+            <div class="modal-body-custom">
+                <form name="userForm" ng-submit="salvarUsuario()">
+                    <div class="input-group">
+                        <label>Nome</label>
+                        <input type="text" ng-model="modal.data.name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" ng-model="modal.data.email" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Senha</label>
+                        <input type="password" ng-model="modal.data.password" placeholder="{{ modal.data.id ? 'Deixe em branco para não alterar' : '' }}">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer-custom">
+                <button class="btn btn-danger" ng-if="modal.data.id" ng-click="excluirUsuario(modal.data.id)">
+                    Excluir Usuário
+                </button>
+                <button class="btn btn-secondary" ng-click="fecharModal()">Cancelar</button>
+                <button class="btn btn-success" ng-click="salvarUsuario()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
